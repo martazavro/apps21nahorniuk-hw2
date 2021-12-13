@@ -86,7 +86,7 @@ public final class ImmutableLinkedList implements ImmutableList {
                 array[i] = newList[i - c.length];
             }
         }
-        return new ImmutableLinkedList(Array);
+        return new ImmutableLinkedList(array);
     }
 
     @Override
