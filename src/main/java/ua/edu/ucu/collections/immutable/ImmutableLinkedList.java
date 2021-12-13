@@ -11,7 +11,7 @@ public final class ImmutableLinkedList implements ImmutableList {
     public ImmutableLinkedList(Object[] elements) {
         Node lastNode = null;
         for (Object current: elements) {
-            length ++;
+            length++;
             Node curNode = new Node();
             curNode.setValue(current);
             curNode.setPrevious(lastNode);
@@ -75,15 +75,15 @@ public final class ImmutableLinkedList implements ImmutableList {
             throw new IndexOutOfBoundsException();
         }
         Object[] newList = Arrays.copyOf(this.toArray(), this.length);
-        Object[] Array = new Object[this.length + c.length];
-        for (int i = 0; i < Array.length; ++i) {
+        Object[] array = new Object[this.length + c.length];
+        for (int i = 0; i < array.length; ++i) {
             if (i < index + c.length) {
-                Array[i] = c[i-index];
+                array[i] = c[i-index];
             }
             else if (i < index) {
-                Array[i] = newList[i];
+                array[i] = newList[i];
             } else {
-                Array[i] = newList[i - c.length];
+                array[i] = newList[i - c.length];
             }
         }
         return new ImmutableLinkedList(Array);
