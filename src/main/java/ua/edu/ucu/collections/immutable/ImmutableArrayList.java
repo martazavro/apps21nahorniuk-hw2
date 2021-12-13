@@ -91,7 +91,8 @@ public final class ImmutableArrayList implements ImmutableList {
         if (index < 0 || index > arrLength) {
             throw new IndexOutOfBoundsException();
         }
-        return array[index];}
+        return array[index];
+    }
 
 
     @Override
