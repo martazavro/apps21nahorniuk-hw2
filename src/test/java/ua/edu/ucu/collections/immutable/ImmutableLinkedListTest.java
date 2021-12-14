@@ -41,12 +41,30 @@ public class ImmutableLinkedListTest {
 
     }
     @Test(expected = IndexOutOfBoundsException.class)
-    
+
     public void testAddAllError() {
         ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {1, 2, 3});
         ImmutableList newLinkedList = linkedList.addAll(4, new Object[] {4, 5});
     }
-
+    @Test
+    public void isEmpty() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {0});
+        assertEquals(linkedList.isEmpty(), false);
+    }
+    @Test
+    public void isEmptyEmpty() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {});
+        assertEquals(linkedList.isEmpty(), true);
+    }
+    @Test
+    public void toArray() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {1,1, 1, 1});
+        int[] expected = new int[]{1, 1, 1, 1};
+        Object[] actual = linkedList.toArray();
+        for (int i = 0; i < expected.length; i ++) {
+            assertEquals(actual[i], expected[i]);
+        }
+    }
 
     @Test
     public void testSize() {
@@ -104,6 +122,17 @@ public class ImmutableLinkedListTest {
         assertEquals(5, immutableLinkedList.getTail().getValue());
     }
 
+    @Test
+    public void getHeadEmpty() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {});
+        assertEquals(linkedList.getHead(), null);
+    }
+
+    @Test
+    public void getTailEmpty() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[]{});
+        assertEquals(linkedList.getTail(), null);
+    }
     @Test
     public void testGetFirst() {
         assertEquals(3, immutableLinkedList.getFirst());
