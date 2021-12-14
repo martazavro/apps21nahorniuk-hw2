@@ -3,12 +3,12 @@ package ua.edu.ucu.collections.immutable;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class ImmutableLinkedListTest {
     ImmutableLinkedList immutableLinkedList;
+    ImmutableList LinkedList;
+
 
     @Before
     public void setUp() {
@@ -26,13 +26,52 @@ public class ImmutableLinkedListTest {
         assertArrayEquals(new Integer[] {Integer.valueOf(5)}, immutableLinkedList.toArray());
     }
 
+    @Test
+    public void testAddFirst() {
+        ImmutableLinkedList expected = new ImmutableLinkedList(
+                new Object[]{1, 2, 3, 4, 5}).addFirst(0);
+        Object[] actual = new Object[]{0, 1, 2, 3, 4, 5};
+        assertArrayEquals(expected.toArray(), actual);
+    }
+
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddAllBeforeError() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {5, 3, 1});
+        ImmutableList newLinkedList = linkedList.addAll(-1, new Object[] {6, 3});
+
+    }
+    @Test(expected = IndexOutOfBoundsException.class)
+    
+    public void testAddAllError() {
+        ImmutableLinkedList linkedList = new ImmutableLinkedList(new Object[] {1, 2, 3});
+        ImmutableList newLinkedList = linkedList.addAll(4, new Object[] {4, 5});
+    }
+
 
     @Test
     public void testSize() {
         immutableLinkedList = new ImmutableLinkedList(new Integer[] {Integer.valueOf(3), Integer.valueOf(5)});
         assertEquals(2, immutableLinkedList.size());
     }
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testGetInvalidIndexRight() {
+        immutableLinkedList.get(5);
+    }
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testRemoveInvalidIndexRight() {
+        immutableLinkedList.remove(10);
+    }
 
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testRemoveInvalidIndexLeft() {
+        immutableLinkedList.remove(-3);
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testGetFirstEmpty() {
+        ImmutableLinkedList empty = new ImmutableLinkedList();
+        empty.getFirst();
+    }
     @Test
     public void testClear() {
         immutableLinkedList = (ImmutableLinkedList) immutableLinkedList.clear();
@@ -50,9 +89,8 @@ public class ImmutableLinkedListTest {
     }
 
     @Test
-    public void testAddFirst() {
-        assertArrayEquals(new Integer[] {Integer.valueOf(2), Integer.valueOf(3), Integer.valueOf(5)}, immutableLinkedList.addFirst(Integer.valueOf(2)).toArray());
-
+    public void testIndexOf() {
+        assertEquals(immutableLinkedList.indexOf(3), 0);
     }
 
 
@@ -85,4 +123,23 @@ public class ImmutableLinkedListTest {
     public void testRemoveLast() {
         assertArrayEquals(new Integer[] {Integer.valueOf(3)}, immutableLinkedList.removeLast().toArray());
     }
-}
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testAddAllInvalidIndexRight() {
+        immutableLinkedList.addAll(9,new Object[]{1, 2});
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testAddAllInvalidIndexLeft() {
+        immutableLinkedList.addAll(-5, new Object[]{1, 2});
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testAddInvalidIndexRight() {
+        immutableLinkedList.add(10,1);
+    }
+
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testAddInvalidIndexLeft() {
+        immutableLinkedList.add(-1,10);
+}}
